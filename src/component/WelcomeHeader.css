@@ -1,0 +1,18 @@
+.jumbo {
+  background: url("https://cdn.lifestyleasia.com/wp-content/uploads/2019/08/28171749/59ef6862637b4.jpeg")
+    no-repeat fixed bottom;
+  background-size: cover;
+  color: black;
+  text-shadow: 1cm;
+  height: 200px;
+  /* position: relative; */
+  /* z-index: -2; */
+}
+
+.welcomeDiv {
+  font-size: 30px;
+  position: absolute;
+  background-color: black;
+  color: white;
+  /* opacity: 50%; */
+}
