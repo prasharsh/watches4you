@@ -109,12 +109,14 @@ module.exports = {
             //XA START
             db734.query('XA START \'' + txnId.toString() +'\'', function (err566, succ566) {
             if (err566) {
+                res566.status(400);
                 return res566.json(err566)
             }
 
             //UPDATE
             userCreditModel.find({ username: username }).exec(function (err566, succ566) {
                 if (err566) {
+                    res566.status(400);
                     return res566.json(err566)
                 }
                 else if (succ566.length > 0) {
@@ -122,14 +124,17 @@ module.exports = {
                         if (err) {
                             db734.query('XA END \'' + txnId +'\'', function (err566, res566) {
                                 if (err566) {
+                                    res566.status(400);
                                     return res566.json(err566)
                                 }
                         })
+                            res566.status(400);
                             return res566.json(err)
                         }
                         //XA END
                         db734.query('XA END \'' + txnId +'\'', function (err566, succ566) {
                             if (err566) {
+                                res566.status(400);
                                 return res566.json(err566)
                             }
                             return res566.json("successfully Initiated XA transaction for id: " + txnId);
@@ -142,6 +147,7 @@ module.exports = {
                 else {
                     db734.query('XA END \'' + txnId +'\'', function (err566, succ566) {
                         if (err566) {
+                            res566.status(400);
                             return res566.json(err566)
                         }
                     return res566.json("Username does not exists");
@@ -157,6 +163,7 @@ module.exports = {
             console.log('connected prepare with: ' + db734.threadId);
             db734.query('XA PREPARE \'' + txnId +'\';', function (err566, succ566) {
                 if (err566) {
+                    res566.status(400);
                     return res566.json(err566)
                 }
                 return res566.json("successfully prepared XA transaction with id: " + txnId);
@@ -167,6 +174,7 @@ module.exports = {
             sails.log('commit');
             db734.query('XA COMMIT \'' + txnId +'\';', function (err566, succ566) {
                 if (err566) {
+                    res566.status(400);
                     return res566.json(err566)
                 }
                 return res566.json("successfully COMMITTED XA transaction with id: " + txnId);
@@ -177,6 +185,7 @@ module.exports = {
             sails.log('rollback');
             db734.query('XA ROLLBACK \'' + txnId +'\';', function (err566, succ566) {
                 if (err566) {
+                    res566.status(400);
                     return res566.json(err566)
                 }
                 return res566.json("successfully ROLLBACKED XA transaction with id: " + txnId);
