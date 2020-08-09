@@ -1,0 +1,81 @@
+<style>
+    table, th, td {
+    padding: 10px;
+    border: 1px solid black;
+    border-collapse: collapse;
+    }
+</style>
+
+<div class="default-page">
+    <div class="header">
+      <h1 id="main-title" class="container"><%= __(' View Transactions') %></h1>
+      <h3 class="container"> <code>E-Wallet</code></h3>
+    </div>
+    <br>
+    <div class="main container clearfix">
+
+        <div>
+            <h2> Search Transactions </h2>
+            <br>
+            <br>
+            <form action="/searchTransactions" method="POST">
+            <label for="transaction">User Name: </label>
+            <select name="username" id="transaction">
+                <option value="" > </option>
+                <% options.forEach(function(option){ %>
+                    <option value=<%= option.username %> ><%= option.username %> </option>
+                <% }) %>
+            </select>
+            <button class="button"> Search </button>
+            </form>
+           <br>
+           </form>
+           <br>
+           <hr>
+           
+           <br>
+           </div>
+
+<body>
+    <h2>  </h2>
+    <br>
+    <table>
+    <thead>
+    <tr>
+    <th> User Name </th>
+    <th> Transaction Id </th>
+    <th> Transaction Date </th>
+    <th> Transaction Amount </th>
+    </tr>
+    </thead>
+    <tbody class="tbodys">
+    <% usertransactions.forEach(function(transaction){ %>
+        
+    <tr>
+    <td> <%= transaction.username %> </td>
+    <td><%= transaction.txnId %> </td>
+    <td> <%= transaction.transactiondate %> </td> 
+    <td> <%= transaction.transactionamount %> </td>
+    </tr>
+    
+
+    <% }) %>
+    </tbody>
+    </table>
+   </body>
+   <br>
+   <form action="/">
+    <button  class="button"> Home </button>
+   </form>
+   <br>
+   <form action="/getUsers">
+    <button class="button"> View/Add/Update Users</button>
+    </form>
+   <br>
+   <!-- <form action="/getPartsView566">
+    <button  class="button"> Add <span class="spanOr">|</span> View <span class="spanOr">|</span>  Delete Jobs </button>
+    </form> -->
+   <br>
+</div>
+</div>
+   

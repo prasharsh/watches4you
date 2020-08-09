@@ -1,0 +1,65 @@
+<style>
+    table, th, td {
+    padding: 10px;
+    border: 1px solid black;
+    border-collapse: collapse;
+    }
+   </style>
+
+<div class="default-page">
+    <div class="header">
+      <h1 id="main-title" class="container"><%= __(' View and Delete Part Details') %></h1>
+      
+    </div>
+    <br>
+    <div class="main container clearfix">
+        <h2> Add Job </h2>
+        <form action="/postPartsView566" method="POST">
+        <input type="number", name="partId", placeholder="Part Id", required>
+        <input type="text", name="partName", placeholder="Part Name", required>
+        <input type="number", name="qoh", placeholder="qoh", required>
+        <button class="button"> Add Part </button>
+    </form>
+   <br>
+   <hr>
+   </form>
+   <br>
+   
+
+<body>
+    <h2> View and Delete Part Details </h2>
+    <br>
+    <table>
+    <thead>
+    <tr>
+        <th> Parts Id </th>
+        <th> Parts Name </th>
+        <th> Quantity </th>
+    <th> Delete </th>
+    </tr>
+    </thead>
+    <tbody class="tbodys">
+    <% parts.forEach(function(part){ %>
+        <form action="/deletePartsView566" method="POST">
+    <tr>
+    <td><input type="text" name="jobId566" placeholder="Job Id" value=<%= part.id %>  hidden> <%= part.id %> </td>
+    <td><input type="text" name="PartId566" placeholder="Job Id" value=<%= part.partName %> hidden> <%= part.partName %> </td>
+    <td><input type="text" name="id" placeholder="Job Id" value=<%= part.qoh %> hidden> <%= part.qoh %> </td>
+    <td><button class="button button3"> Delete Part </button></td>
+    </tr>
+    
+</form>
+    <% }) %>
+    </tbody>
+    </table>
+   </body>
+   <br>
+   <form action="/">
+    <button class="button"> Home </button>
+   </form>
+   <br>
+   <form action="/getPartsViewForUpdate566">
+    <button class="button">Add <span class="spanOr">|</span> View <span class="spanOr">|</span>  Update Parts</button>
+    </form>
+</div>
+</div>

@@ -1,0 +1,74 @@
+<style>
+    table, th, td {
+    padding: 10px;
+    border: 1px solid black;
+    border-collapse: collapse;
+    }
+</style>
+
+<div class="default-page">
+    <div class="header">
+      <h1 id="main-title" class="container"><%= __(' Add and Update Users') %></h1>
+      <h3 class="container"> <code>E-Wallet</code></h3>
+    </div>
+    <br>
+    <div class="main container clearfix">
+    
+
+
+
+
+<div>
+    <h2> Add User </h2>
+    <form action="/addUser" method="POST">
+    <input type="text", name="username", placeholder="User Name", required>
+    <input type="number", name="credit", placeholder="User Credit", required>
+    <button class="button"> Add User </button>
+    </form>
+   <br>
+   </form>
+   <br>
+   <hr>
+   
+   <br>
+   </div>
+
+<body>
+    <h2> Update User Credits </h2>
+    <br>
+    <table>
+    <thead>
+    <tr>
+    <th> User Name </th>
+    <th> Credits </th>
+    <th> New Credits </th>
+    <th> Update </th>
+    </tr>
+    </thead>
+    <tbody class="tbodys">
+    <% usercredit.forEach(function(usercredit){ %>
+        <form action="/updateUserView" method="POST">
+    <tr>
+    <td><input type="text" name="username" placeholder="username" value=<%= usercredit.username %> hidden> <%= usercredit.username %> </td>
+    <td><input type="number" name="usercredit" placeholder="usercredit" value=<%= usercredit.credit %>  hidden> <%= usercredit.credit %> </td>
+    <td><input type="number" name="credit" placeholder="Credits" > </td>
+    <td><button class="button button4"> Update User </button></td>
+    </tr>
+    
+</form>
+    <% }) %>
+    </tbody>
+    </table>
+   </body>
+   <br>
+   <form action="/">
+    <button  class="button"> Home </button>
+   </form>
+   <br>
+   <form action="/getTransactionsview">
+    <button class="button"> View Transactions </button>
+    </form>
+   <br>
+</div>
+</div>
+   
