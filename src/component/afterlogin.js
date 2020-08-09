@@ -13,7 +13,7 @@ export class afterlogin extends React.Component {
   }
   componentDidMount() {
     let name = localStorage.getItem("username");
-    fetch("http://1c3e8e29f3d0.ngrok.io/userCredit?username=" + name)
+    fetch("http://129.173.67.174:1337/userCredit?username=" + name)
       .then((response) => response.json())
       .then((data) => {
         console.log(data[0]);
@@ -29,17 +29,26 @@ export class afterlogin extends React.Component {
       id: localStorage.getItem("WatchID"),
       product_name: localStorage.getItem("Product_name"),
       qty: localStorage.getItem("reducedQty"),
+      qtyOrdered: localStorage.getItem("Qty"),
       bill: localStorage.getItem("price"),
+      creditsUsed:
+        parseInt(this.state.credits) - parseInt(localStorage.getItem("price")),
       order_date: this.state.curTime,
       ordered_by: localStorage.getItem("username"),
     };
-    fetch("http://localhost:8080/api/watches/newOrder", {
-      method: "POST",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify(details),
-    })
+    fetch(
+      "http://cloudproject-env.eba-gqvtmz3e.us-east-1.elasticbeanstalk.com/api/watches/newOrder",
+      {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify(details),
+      }
+    )
       .then((response) => response.json())
-      .then((data) => {});
+      .then((data) => {
+        console.log(data);
+        this.props.history.push("/bookSuccess");
+      });
   }
 
   render() {

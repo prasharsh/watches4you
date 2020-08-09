@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-import { Form, Container, Row, Col,Image } from "react-bootstrap";
+import { Form, Container, Row, Col, Image } from "react-bootstrap";
 import "./login.css";
 
-export default class login
- extends Component {
+export default class login extends Component {
   constructor() {
     super();
 
@@ -37,28 +36,29 @@ export default class login
       console.log(window.getSelection().toString());
 
       this.fetchAPI(this.refs.username.value, this.refs.password.value);
-      
     }
   }
- 
 
   fetchAPI(usernameStr, passwordStr) {
     // param is a highlighted word from the user before it clicked the button
     console.log("Username" + usernameStr);
     console.log("Username" + passwordStr);
-    let details ={
+    let details = {
       username: usernameStr,
-      password: passwordStr
-    }
-    fetch("http://localhost:8080/api/watches/login", {
-      method: "POST",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify(details),
-    })
+      password: passwordStr,
+    };
+    fetch(
+      "http://cloudproject-env.eba-gqvtmz3e.us-east-1.elasticbeanstalk.com/api/watches/login",
+      {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify(details),
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         const loggedInUser = data[0].username;
-        console.log("username"+ loggedInUser);
+        console.log("username" + loggedInUser);
         if (!loggedInUser) {
           console.log("Failure");
           localStorage.setItem("logInResults", "failure");
@@ -70,10 +70,8 @@ export default class login
           localStorage.setItem("username", loggedInUser);
           this.props.history.push("/afterLogin");
         }
-        
       });
   }
-
 
   validateForm() {
     let fields = this.state.fields;
@@ -95,56 +93,52 @@ export default class login
     return formIsValid;
   }
 
-  
-
   render() {
     return (
-      <div className = "LoginForm">
-     <Row >
-       <Col>
-        <form className="Form"  method="post" onSubmit={this.loginForm}>
-            <h3>Sign In</h3>
+      <div className="LoginForm">
+        <Row>
+          <Col>
+            <form className="Form" method="post" onSubmit={this.loginForm}>
+              <h3>Sign In</h3>
 
-            <div className="form-group">
+              <div className="form-group">
                 <label>Username</label>
-                <input 
-                type="text"
-                 name="username"
-                 ref="username"
-                onChange={this.handleChange}
-                className="form-control" 
-                placeholder="Enter email" />
-                 <div className="errorMsg">{this.state.errors.username}</div>
-            </div>
+                <input
+                  type="text"
+                  name="username"
+                  ref="username"
+                  onChange={this.handleChange}
+                  className="form-control"
+                  placeholder="Enter email"
+                />
+                <div className="errorMsg">{this.state.errors.username}</div>
+              </div>
 
-            <div className="form-group">
+              <div className="form-group">
                 <label>Password</label>
-                <input 
-                type="password"
-                name="password" 
-                ref="password"
-                onChange={this.handleChange}
-                className="form-control" 
-                placeholder="Enter password" />
-                 <div className="errorMsg">{this.state.errors.password}</div>
-            </div>
+                <input
+                  type="password"
+                  name="password"
+                  ref="password"
+                  onChange={this.handleChange}
+                  className="form-control"
+                  placeholder="Enter password"
+                />
+                <div className="errorMsg">{this.state.errors.password}</div>
+              </div>
 
-            <button 
-            type="submit" 
-            
-            className="btn btn-success btn-block">Submit</button>
-            <p className="forgot-password text-right">
+              <button type="submit" className="btn btn-success btn-block">
+                Submit
+              </button>
+              <p className="forgot-password text-right">
                 Forgot <a href="#">password?</a>
-            
-            
-                  
-            </p>
-        </form>
-        </Col>
-        {/* <Col className="image">
+              </p>
+            </form>
+          </Col>
+          {/* <Col className="image">
         </Col> */}
         </Row>
-        </div>
+      </div>
     );
   }
 }
