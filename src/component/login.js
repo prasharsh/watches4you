@@ -37,14 +37,10 @@ export default class login
       console.log(window.getSelection().toString());
 
       this.fetchAPI(this.refs.username.value, this.refs.password.value);
-      if (this.value === "register")
-      this.Resigter()
+      
     }
   }
-  Resigter(e){
-    e.preventDefault();
-   history.push("/register")
-  }
+ 
 
   fetchAPI(username, password) {
     // param is a highlighted word from the user before it clicked the button
@@ -153,13 +149,15 @@ export default class login
       <div className = "LoginForm">
      <Row >
        <Col>
-        <form className="Form">
+        <form className="Form"  method="post" onSubmit={this.loginForm}>
             <h3>Sign In</h3>
 
             <div className="form-group">
                 <label>Email address</label>
-                <input type="email" 
-                ref="username"
+                <input 
+                type="text"
+                 name="username"
+                 ref="username"
                 onChange={this.handleChange}
                 className="form-control" 
                 placeholder="Enter email" />
@@ -168,7 +166,9 @@ export default class login
 
             <div className="form-group">
                 <label>Password</label>
-                <input type="password" 
+                <input 
+                type="password"
+                name="password" 
                 ref="password"
                 onChange={this.handleChange}
                 className="form-control" 
@@ -178,18 +178,11 @@ export default class login
 
             <button 
             type="submit" 
-            onClick={this.loginForm}
+            
             className="btn btn-success btn-block">Submit</button>
             <p className="forgot-password text-right">
                 Forgot <a href="#">password?</a>
-            </p>
-            <button 
-            type="submit" 
-            className="btn btn-primary btn-block"
-            value="register" 
-            onClick={this.Resigter}>
-              New User? Register here </button>
-            <p className="forgot-password text-right">
+            
             
                   
             </p>
