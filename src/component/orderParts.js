@@ -44,6 +44,7 @@ export default class orderParts extends Component {
       console.log(price);
       console.log(index);
       localStorage.setItem("Qty", qty);
+      localStorage.setItem("Product_name", index.watch_name);
       localStorage.setItem("WatchID", index.watch_id);
       localStorage.setItem("price", price);
       console.log("WatchID : " + index.watch_id);

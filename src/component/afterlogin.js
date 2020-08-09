@@ -1,57 +1,60 @@
 import React from "react";
-import { Table } from "react-bootstrap";
+import { Table, Button } from "react-bootstrap";
 
 export class afterlogin extends React.Component {
-  printUser() {
-    console.log("Called print user");
-    // let userID = localStorage.getItem("user");
-    let username = localStorage.getItem("user")
-    let token =localStorage.getItem("token");
-
-    var jobDetailsArr = JSON.parse(localStorage.getItem("jobDetails"));
-
-    console.log("Job Details Array: " + jobDetailsArr);
-    console.log("User name-->" + username);
-    var json = {};
-    json.username = username;
-    json.partsToBook = jobDetailsArr;
-
-    console.log(json);
-    console.log("Bearer "+token);
-    fetch(
-      "http://cloud7-env.eba-mm3kp2rp.us-east-1.elasticbeanstalk.com/companyz/book",
-      {
-        method: "POST",
-        headers: { "Content-type": "application/json" ,
-        Authorization : "Bearer "+token},
-        body: JSON.stringify(json),
-      }
-    ).then((res) => {
-      if (res) {
-        if (res.status == 200) {
-          this.props.history.push("/bookSuccess");
-        } else if(res.status== 403)
-          {
-           window.alert("403 : Forbidden, User not authorized")
-           this.props.history.push("/login");
-        }
-          else{
-          this.props.history.push("/bookFailure");
-
-        }
-      }
-    });
+  constructor() {
+    super();
+    this.state={
+      credits:"",
+      curTime : new Date().toLocaleString(),
+    }
+  
+   
+    this.placeOrder = this.placeOrder.bind(this);
   }
+  componentDidMount(){
+    let name =localStorage.getItem("username")
+    fetch.get("http://1c3e8e29f3d0.ngrok.io/userCredit?username="+name)
+    .then((response) => response.json())
+      .then((data) => {
+        this.state.credits=data;
+  }
+      )}
+
+ placeOrder()
+ {
+   console.log(this.state.curTime)
+let details={
+  productId: localStorage.getItem("WatchID"),
+  product_name:localStorage.getItem("Product_name"),
+  qty: localStorage.getItem("Qty"),
+  bill: localStorage.getItem("price"),
+  order_date:this.state.curTime,
+  ordered_by:localStorage.getItem("username")
+
+}
+  fetch("http://localhost:8080/api/watches/newOrder", {
+    method: "POST",
+    headers: { "Content-type": "application/json" },
+    body: JSON.stringify(details),
+  })
+  .then((response) => response.json())
+ .then((data) => {
+   
+ }
+ )}
+
 
   render() {
     return (
       <div>
-      <Table striped bordered hover>
+      <Table striped bordered hover variant="dark">
   <thead>
     <tr>
       <th>Username</th>
       <th>Quanity Ordered</th>
       <th>Watch ID </th>
+      <th>Credits Available </th>
       <th>Total Cost</th>
     </tr>
   </thead>
@@ -60,11 +63,23 @@ export class afterlogin extends React.Component {
       <td>{localStorage.getItem("username")}</td>
       <td>{localStorage.getItem("Qty")}</td>
       <td>{localStorage.getItem("WatchID")}</td>
-      <td>{localStorage.getItem("price")}</td>
+      <td></td>
+      <td>{localStorage.getItem("price")}  CAD</td>
     </tr>
     
   </tbody>
 </Table>
+<Button
+                variant="dark"
+                disabled={(parseInt(this.state.credits)) < (parseInt(localStorage.getItem("price")))}
+                onClick={this.placeOrder}
+              >
+                Place Order
+              </Button>
+            <br></br><br></br> 
+            <a href="/"> Home</a> 
+              
+
       </div>
     );
   }
