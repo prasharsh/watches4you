@@ -6,6 +6,9 @@ module.exports = (sequelize, Sequelize) => {
     qty: {
       type: Sequelize.INTEGER,
     },
+    bill: {
+      type: Sequelize.INTEGER,
+    },
     order_date: {
       type: Sequelize.STRING,
     },

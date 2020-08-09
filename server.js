@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-
+const fetch = require("node-fetch");
 const app = express();
 app.use(cors());
 // parse requests of content-type - application/json
