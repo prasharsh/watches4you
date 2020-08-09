@@ -6,20 +6,20 @@ class search extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      jobs: [],
+      Watches: [],
     };
   }
 
   componentDidMount() {
     const url =
-      "https://31u8etrzrf.execute-api.us-east-1.amazonaws.com/Test/getjobsparts";
+      "https://se2gktifxk.execute-api.us-east-1.amazonaws.com/dev/getallwatchinfo";
 
     fetch(url)
       .then((res) => res.json())
       .then(
         (result) => {
           this.setState({
-            jobs: result,
+            Watches: result,
           });
           console.log(result);
         },
@@ -33,77 +33,73 @@ class search extends Component {
   }
 
   renderTable() {
-    const { jobs } = this.state;
-    console.log(jobs);
-    if (jobs.length > 0) {
+    const { Watches } = this.state;
+    console.log(Watches);
+    if (Watches.length > 0) {
       return (
         <Table striped bordered hover>
           <thead>
             <tr>
-              <th>Job</th>
-              <th>Parts</th>
+              <th></th>
+              <th>Watch Id</th>
+              <th>Watch Name</th>
+              <th>watch Quantity</th>
+              <th>Watch Price</th>
               <th>Action</th>
             </tr>
           </thead>
-          <tbody>{this.renderJobs()}</tbody>
+          <tbody>{this.renderWatches()}</tbody>
         </Table>
       );
     } else {
-      return <div>No Jobs</div>;
+      return <div>No Watches</div>;
     }
   }
 
-  orderJob(index) {
+  orderWatch(index) {
     console.log(index);
-    localStorage.setItem("jobID", index.jobName);
-    console.log("jobID : " + index.jobName);
+    localStorage.setItem("WatchID", index.watch_id);
+    console.log("WatchID : " + index.watch_id);
     this.props.history.push("/orderParts");
   }
-  renderJobs() {
-    const { jobs } = this.state;
-    if (jobs.length > 0) {
-      return jobs.map((index) => (
+  renderWatches() {
+    const { Watches } = this.state;
+    if (Watches.length > 0) {
+      return Watches.map((index) => (
         <>
           <tr>
-            <td>{index.jobName}</td>
-            <td>{index.partId}</td>
             <td>
-              <Button variant="dark" onClick={() => this.orderJob(index)}>
-                Get Job
+              <img
+                src={index.img_url}
+                alt="watch picture"
+                width="100"
+                height="100"
+              ></img>
+            </td>
+            <td>{index.watch_id}</td>
+            <td>{index.watch_name}</td>
+            <td>{index.watch_quantity}</td>
+            <td>{index.watch_price}</td>
+            <td>
+              <Button variant="dark" onClick={() => this.orderWatch(index)}>
+                Get Watch
               </Button>
             </td>
           </tr>
         </>
       ));
     } else {
-      return <div>No jobs</div>;
+      return <div>No Watches</div>;
     }
   }
 
-  filterJobs() {
-    console.log(this.refs.job.value);
+  filterWatches() {
+    console.log(this.refs.Watch.value);
     this.setState({
-      jobs: this.state.jobs.filter(
-        (item) => item.jobName === this.refs.job.value
+      Watches: this.state.Watches.filter(
+        (item) => item.watch_name === this.refs.Watch.value
       ),
     });
-    let jobInfo = {
-      jobName: this.refs.job.value,
-    };
-    fetch(
-      "http://cloud7-env.eba-mm3kp2rp.us-east-1.elasticbeanstalk.com/companyz/insertSearch",
-      {
-        method: "POST",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify(jobInfo),
-      }
-    )
-      .then((r) => r.json())
-      .then((res) => {
-        if (res) {
-          console.log("search logged successfully");
-        }
-      });
   }
 
   reset() {
@@ -113,20 +109,20 @@ class search extends Component {
     return (
       <React.Fragment>
         <div className="inner">
-          <h2>Jobs</h2>
+          <h2>Watches</h2>
           <br />
           <br />
           <input
             type="text"
-            ref="job"
-            placeholder="Enter Job Name"
+            ref="Watch"
+            placeholder="Enter Watch Name"
             aria-label="Search"
           />{" "}
           {"    "}
           <Button
             variant="dark"
             type="submit"
-            onClick={() => this.filterJobs()}
+            onClick={() => this.filterWatches()}
           >
             Search
           </Button>
