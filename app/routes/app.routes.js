@@ -5,6 +5,7 @@ module.exports = (app) => {
 
   // Create a new record
   router.post("/", watches.create);
+  router.post("/login", watches.findAll);
 
   // Retrieve all watches
   router.get("/", watches.findAll);

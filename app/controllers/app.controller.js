@@ -32,12 +32,22 @@ exports.create = (req, res) => {
 
 // Retrieve all Users from the database.
 exports.findAll = (req, res) => {
-  const username = req.query.username;
-  var condition = username
-    ? { username: { [Op.like]: `%${username}%` } }
-    : null;
+  const username = req.body.username;
+  const password = req.body.password;
 
-  User.findAll({ where: condition })
+  console.log(
+    { username: { [Op.like]: `%${username}%` } } +
+      "___________" +
+      { password: { [Op.like]: `%${password}%` } }
+  );
+  User.findAll({
+    where: {
+      [Op.and]: [
+        { username: { [Op.like]: `%${username}%` } },
+        { password: { [Op.like]: `%${password}%` } },
+      ],
+    },
+  })
     .then((data) => {
       res.send(data);
     })
