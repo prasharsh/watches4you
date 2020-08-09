@@ -81,7 +81,17 @@ class search extends Component {
             <td>{index.watch_quantity}</td>
             <td>{index.watch_price}</td>
             <td>
-              <Button variant="dark" onClick={() => this.orderWatch(index)}>
+              {console.log(
+                "int mein watch:::" +
+                  parseInt(index.watch_quantity) +
+                  "----------" +
+                  (parseInt(index.watch_quantity) < 10)
+              )}
+              <Button
+                variant="dark"
+                disabled={parseInt(index.watch_quantity) < 1}
+                onClick={() => this.orderWatch(index)}
+              >
                 Get Watch
               </Button>
             </td>
