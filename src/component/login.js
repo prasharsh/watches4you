@@ -59,7 +59,8 @@ export default class login
         } else {
           console.log("TResult of response   " + response.resultStr.uerId);
           localStorage.setItem("token", response.resultStr.token);
-          localStorage.setItem("user", response.resultStr.uerId);
+          // localStorage.setItem("user", response.resultStr.uerId);
+          localStorage.setItem("user", response.resultStr.username);
           this.props.history.push("/afterLogin");
         }
       });

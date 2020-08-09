@@ -1,18 +1,19 @@
 import React from "react";
-import { Button } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
 
 export class afterlogin extends React.Component {
   printUser() {
     console.log("Called print user");
-    let userID = localStorage.getItem("user");
+    // let userID = localStorage.getItem("user");
+    let username = localStorage.getItem("user")
     let token =localStorage.getItem("token");
 
     var jobDetailsArr = JSON.parse(localStorage.getItem("jobDetails"));
 
     console.log("Job Details Array: " + jobDetailsArr);
-    console.log("User name-->" + userID);
+    console.log("User name-->" + username);
     var json = {};
-    json.userId = userID;
+    json.username = username;
     json.partsToBook = jobDetailsArr;
 
     console.log(json);
@@ -45,11 +46,17 @@ export class afterlogin extends React.Component {
   render() {
     return (
       <div>
-        <h3>Successfully Logged In</h3>
-        <p>Do you want to confirm Order?</p>
-        <br></br>
-        <br></br>
-        <br></br>
+       <Card style={{ width: '18rem' }}>
+  <Card.Img variant="top" src="holder.js/100px180" />
+  <Card.Body>
+    <Card.Title>Card Title</Card.Title>
+    <Card.Text>
+      Some quick example text to build on the card title and make up the bulk of
+      the card's content.
+    </Card.Text>
+    <Button variant="primary">Go somewhere</Button>
+  </Card.Body>
+</Card>
         <Button
           size="sm"
           variant="dark"

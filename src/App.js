@@ -4,7 +4,7 @@ import search from "./component/search";
 import orderParts from "./component/orderParts";
 import login from "./component/login";
 import afterlogin from "./component/afterlogin";
-import registerUser from './component/registerUser';
+
 import bookSuccess from "./component/bookSuccess";
 import bookFailure from "./component/bookFailure";
 import { WelcomeHeader } from "./component/WelcomeHeader.js";
@@ -18,7 +18,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={search} />
           <Route exact path="/login" component={login} />
-          <Route exact path="/registerUser" component={registerUser} />
+         
           <Route exact path="/orderParts" component={orderParts} />
           <Route exact path="/afterlogin" component={afterlogin} />
           <Route exact path="/bookSuccess" component={bookSuccess} />
