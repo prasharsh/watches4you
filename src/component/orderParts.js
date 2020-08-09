@@ -47,6 +47,8 @@ export default class orderParts extends Component {
       localStorage.setItem("Product_name", index.watch_name);
       localStorage.setItem("WatchID", index.watch_id);
       localStorage.setItem("price", price);
+      console.log(parseInt(index.watch_quantity) - qty);
+      localStorage.setItem("reducedQty", parseInt(index.watch_quantity) - qty);
       console.log("WatchID : " + index.watch_id);
       this.props.history.push("/login");
     }
@@ -77,6 +79,8 @@ export default class orderParts extends Component {
             Watch Id: {index.watch_id}
             <br />
             Watch Name: {index.watch_name}
+            <br />
+            Watch Description: {index.about}
             <br />
             Quantity Available: {index.watch_quantity} <br />
             Price: {index.watch_price}
