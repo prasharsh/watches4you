@@ -23,7 +23,7 @@ exports.create = (req, res) => {
   // Save Order in the database
   Order.create(order)
     .then((data) => {
-      res.send(data);
+      res.json(data);
     })
     .catch((err) => {
       res.status(500).send({
