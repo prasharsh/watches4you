@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { Form, Container } from "react-bootstrap";
+import { Form, Container, Row, Col,Image } from "react-bootstrap";
 import "./login.css";
 
-export default class ApplyExit extends Component {
+export default class login
+ extends Component {
   constructor() {
     super();
 
@@ -36,7 +37,13 @@ export default class ApplyExit extends Component {
       console.log(window.getSelection().toString());
 
       this.fetchAPI(this.refs.username.value, this.refs.password.value);
+      if (this.value === "register")
+      this.Resigter()
     }
+  }
+  Resigter(e){
+    e.preventDefault();
+   history.push("/register")
   }
 
   fetchAPI(username, password) {
@@ -84,65 +91,114 @@ export default class ApplyExit extends Component {
 
   render() {
     return (
-      <React.Fragment>
-        <Container className="login">
-          <Form className="loginForm">
-            <br></br>
-            <h1>Login</h1>
-            <br></br>
-            <form method="post" name="loginForm" onSubmit={this.loginForm}>
-              <table>
-                {" "}
-                <tr>
-                  <td>
-                    {" "}
-                    <label>Username</label>{" "}
-                  </td>
-                  <td>
-                    {" "}
-                    <input
-                      type="text"
-                      name="username"
-                      ref="username"
-                      onChange={this.handleChange}
-                      placeholder="Enter your username"
-                    />
-                    <div className="errorMsg">{this.state.errors.username}</div>
-                  </td>
-                </tr>
-                <br></br>
-                <tr>
-                  {" "}
-                  <td>
-                    {" "}
-                    <label>Password</label>
-                  </td>
-                  <td>
-                    {" "}
-                    <input
-                      type="password"
-                      name="password"
-                      ref="password"
-                      onChange={this.handleChange}
-                      placeholder="Enter your password"
-                    />
-                    <div className="errorMsg">{this.state.errors.password}</div>
-                  </td>
-                </tr>
-                <br></br>
-                <tr>
-                  {" "}
-                  <input
-                    type="submit"
-                    className="btn btn-success "
-                    value="Login"
-                  />
-                </tr>{" "}
-              </table>
-            </form>
-          </Form>
-        </Container>
-      </React.Fragment>
+      // <React.Fragment>
+      //   <Container className="login">
+      //     <Form className="loginForm">
+      //       <br></br>
+      //       <h1>Login</h1>
+      //       <br></br>
+      //       <form method="post" name="loginForm" onSubmit={this.loginForm}>
+      //         <table>
+      //           {" "}
+      //           <tr>
+      //             <td>
+      //               {" "}
+      //               <label>Username</label>{" "}
+      //             </td>
+      //             <td>
+      //               {" "}
+      //               <input
+      //                 type="text"
+      //                 name="username"
+      //                 ref="username"
+      //                 onChange={this.handleChange}
+      //                 placeholder="Enter your username"
+      //               />
+      //               <div className="errorMsg">{this.state.errors.username}</div>
+      //             </td>
+      //           </tr>
+      //           <br></br>
+      //           <tr>
+      //             {" "}
+      //             <td>
+      //               {" "}
+      //               <label>Password</label>
+      //             </td>
+      //             <td>
+      //               {" "}
+      //               <input
+      //                 type="password"
+      //                 name="password"
+      //                 ref="password"
+      //                 onChange={this.handleChange}
+      //                 placeholder="Enter your password"
+      //               />
+      //               <div className="errorMsg">{this.state.errors.password}</div>
+      //             </td>
+      //           </tr>
+      //           <br></br>
+      //           <tr>
+      //             {" "}
+      //             <input
+      //               type="submit"
+      //               className="btn btn-success "
+      //               value="Login"
+      //             />
+      //           </tr>{" "}
+      //         </table>
+      //       </form>
+      //     </Form>
+      //   </Container>
+      // </React.Fragment>
+      <div className = "LoginForm">
+     <Row >
+       <Col>
+        <form className="Form">
+            <h3>Sign In</h3>
+
+            <div className="form-group">
+                <label>Email address</label>
+                <input type="email" 
+                ref="username"
+                onChange={this.handleChange}
+                className="form-control" 
+                placeholder="Enter email" />
+                 <div className="errorMsg">{this.state.errors.username}</div>
+            </div>
+
+            <div className="form-group">
+                <label>Password</label>
+                <input type="password" 
+                ref="password"
+                onChange={this.handleChange}
+                className="form-control" 
+                placeholder="Enter password" />
+                 <div className="errorMsg">{this.state.errors.password}</div>
+            </div>
+
+            <button 
+            type="submit" 
+            onClick={this.loginForm}
+            className="btn btn-success btn-block">Submit</button>
+            <p className="forgot-password text-right">
+                Forgot <a href="#">password?</a>
+            </p>
+            <button 
+            type="submit" 
+            className="btn btn-primary btn-block"
+            value="register" 
+            onClick={this.Resigter}>
+              New User? Register here </button>
+            <p className="forgot-password text-right">
+            
+                  
+            </p>
+        </form>
+        </Col>
+        {/* <Col className="image">
+        </Col> */}
+        </Row>
+        </div>
     );
   }
 }
