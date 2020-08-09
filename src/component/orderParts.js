@@ -34,6 +34,21 @@ export default class orderParts extends Component {
         }
       );
   }
+  orderWatch(index) {
+    const unitPrice = parseInt(index.watch_price);
+    const qty = parseInt(this.refs.qty.value);
+    if (parseInt(index.watch_quantity) < qty) {
+      alert("Cannot order more than available quantity");
+    } else {
+      const price = unitPrice * qty;
+      console.log(price);
+      console.log(index);
+      localStorage.setItem("WatchID", index.watch_id);
+      localStorage.setItem("price", price);
+      console.log("WatchID : " + index.watch_id);
+      this.props.history.push("/login");
+    }
+  }
   renderTable() {
     console.log(this.state.watches);
     if (!this.state.watches) {
@@ -66,6 +81,7 @@ export default class orderParts extends Component {
             <br />
             Select Quantity:{"   "}
             <input
+              ref="qty"
               type="number"
               id="quantity"
               name="quantity"
@@ -73,7 +89,9 @@ export default class orderParts extends Component {
               max={index.watch_quantity}
             />
           </Card.Text>
-          <Button variant="primary">Checkout</Button>
+          <Button variant="primary" onClick={() => this.orderWatch(index)}>
+            Checkout
+          </Button>
         </Card.Body>
       </Card>
     ));
