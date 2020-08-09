@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Card } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 
 export class afterlogin extends React.Component {
   printUser() {
@@ -46,25 +46,25 @@ export class afterlogin extends React.Component {
   render() {
     return (
       <div>
-       <Card style={{ width: '18rem' }}>
-  <Card.Img variant="top" src="holder.js/100px180" />
-  <Card.Body>
-    <Card.Title>Card Title</Card.Title>
-    <Card.Text>
-      Some quick example text to build on the card title and make up the bulk of
-      the card's content.
-    </Card.Text>
-    <Button variant="primary">Go somewhere</Button>
-  </Card.Body>
-</Card>
-        <Button
-          size="sm"
-          variant="dark"
-          type="submit"
-          onClick={() => this.printUser()}
-        >
-          Confirm booking
-        </Button>
+      <Table striped bordered hover>
+  <thead>
+    <tr>
+      <th>Username</th>
+      <th>Quanity Ordered</th>
+      <th>Watch ID </th>
+      <th>Total Cost</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{localStorage.getItem("username")}</td>
+      <td>{localStorage.getItem("Qty")}</td>
+      <td>{localStorage.getItem("WatchID")}</td>
+      <td>{localStorage.getItem("price")}</td>
+    </tr>
+    
+  </tbody>
+</Table>
       </div>
     );
   }

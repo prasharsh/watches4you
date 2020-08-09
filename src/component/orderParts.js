@@ -43,6 +43,7 @@ export default class orderParts extends Component {
       const price = unitPrice * qty;
       console.log(price);
       console.log(index);
+      localStorage.setItem("Qty", qty);
       localStorage.setItem("WatchID", index.watch_id);
       localStorage.setItem("price", price);
       console.log("WatchID : " + index.watch_id);

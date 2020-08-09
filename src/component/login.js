@@ -42,29 +42,38 @@ export default class login
   }
  
 
-  fetchAPI(username, password) {
+  fetchAPI(usernameStr, passwordStr) {
     // param is a highlighted word from the user before it clicked the button
-    console.log("Username" + username);
-    console.log("Username" + password);
-    fetch(
-      `http://cloud7-env.eba-mm3kp2rp.us-east-1.elasticbeanstalk.com/companyz/users/${username}/${password}`
-    )
-      .then((r) => r.json())
-      .then((response) => {
-        console.log("Line 12" + response.resultStr.uerId);
-        if (!response.resultStr.uerId) {
+    console.log("Username" + usernameStr);
+    console.log("Username" + passwordStr);
+    let details ={
+      username: usernameStr,
+      password: passwordStr
+    }
+    fetch("http://localhost:8080/api/watches/login", {
+      method: "POST",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify(details),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        const loggedInUser = data[0].username;
+        console.log("username"+ loggedInUser);
+        if (!loggedInUser) {
           console.log("Failure");
           localStorage.setItem("logInResults", "failure");
           alert("Invalid Credentials");
         } else {
-          console.log("TResult of response   " + response.resultStr.uerId);
-          localStorage.setItem("token", response.resultStr.token);
+          console.log("TResult of response   " + loggedInUser);
+          // localStorage.setItem("token", response.resultStr.token);
           // localStorage.setItem("user", response.resultStr.uerId);
-          localStorage.setItem("user", response.resultStr.username);
+          localStorage.setItem("username", loggedInUser);
           this.props.history.push("/afterLogin");
         }
+        
       });
   }
+
 
   validateForm() {
     let fields = this.state.fields;
@@ -88,65 +97,6 @@ export default class login
 
   render() {
     return (
-      // <React.Fragment>
-      //   <Container className="login">
-      //     <Form className="loginForm">
-      //       <br></br>
-      //       <h1>Login</h1>
-      //       <br></br>
-      //       <form method="post" name="loginForm" onSubmit={this.loginForm}>
-      //         <table>
-      //           {" "}
-      //           <tr>
-      //             <td>
-      //               {" "}
-      //               <label>Username</label>{" "}
-      //             </td>
-      //             <td>
-      //               {" "}
-      //               <input
-      //                 type="text"
-      //                 name="username"
-      //                 ref="username"
-      //                 onChange={this.handleChange}
-      //                 placeholder="Enter your username"
-      //               />
-      //               <div className="errorMsg">{this.state.errors.username}</div>
-      //             </td>
-      //           </tr>
-      //           <br></br>
-      //           <tr>
-      //             {" "}
-      //             <td>
-      //               {" "}
-      //               <label>Password</label>
-      //             </td>
-      //             <td>
-      //               {" "}
-      //               <input
-      //                 type="password"
-      //                 name="password"
-      //                 ref="password"
-      //                 onChange={this.handleChange}
-      //                 placeholder="Enter your password"
-      //               />
-      //               <div className="errorMsg">{this.state.errors.password}</div>
-      //             </td>
-      //           </tr>
-      //           <br></br>
-      //           <tr>
-      //             {" "}
-      //             <input
-      //               type="submit"
-      //               className="btn btn-success "
-      //               value="Login"
-      //             />
-      //           </tr>{" "}
-      //         </table>
-      //       </form>
-      //     </Form>
-      //   </Container>
-      // </React.Fragment>
       <div className = "LoginForm">
      <Row >
        <Col>
@@ -154,7 +104,7 @@ export default class login
             <h3>Sign In</h3>
 
             <div className="form-group">
-                <label>Email address</label>
+                <label>Username</label>
                 <input 
                 type="text"
                  name="username"
